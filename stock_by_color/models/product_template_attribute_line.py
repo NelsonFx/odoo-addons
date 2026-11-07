@@ -24,11 +24,11 @@ class ProductTemplateAttributeLine(models.Model):
 
     @api.model
     def _refresh_quant_color_value(self, templates):
-        """Recalcula el Color de los quants de los productos de estas plantillas."""
+        """Recalcula Color, Tipo y Marca de los quants de estas plantillas."""
         if not templates:
             return
         quants = self.env['stock.quant'].sudo().search([
             ('product_tmpl_id', 'in', templates.ids),
         ])
         if quants:
-            quants._compute_color_value()
+            quants._recompute_filament_fields()

@@ -11,7 +11,7 @@ class ProductAttributeValue(models.Model):
         return res
 
     def _refresh_quant_color_value(self):
-        """Recalcula el Color de los quants cuyos productos usan estos valores."""
+        """Recalcula Color, Tipo y Marca de los quants cuyos productos usan estos valores."""
         quants = self.env['stock.quant'].sudo().search([
             (
                 'product_id.product_template_attribute_value_ids.product_attribute_value_id',
@@ -20,4 +20,4 @@ class ProductAttributeValue(models.Model):
             ),
         ])
         if quants:
-            quants._compute_color_value()
+            quants._recompute_filament_fields()
